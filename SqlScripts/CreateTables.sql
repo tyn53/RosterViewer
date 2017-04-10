@@ -5,7 +5,8 @@
 
 CREATE TABLE Image (imageId INT NOT NULL IDENTITY(1,1),
 				    imageFileName NVARCHAR(128),
-					imageData VARBINARY(MAX) NOT NULL,
+					imageContent VARBINARY(MAX) NOT NULL,
+					imageContentType NVARCHAR(100) NOT NULL,
 					CONSTRAINT PK_Image PRIMARY KEY CLUSTERED (imageId),
 					CONSTRAINT IX_Image UNIQUE (imageFileName));
 
