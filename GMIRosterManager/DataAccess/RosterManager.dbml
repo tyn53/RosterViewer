@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="RosterViewer" Class="RosterManagerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=RALFY\SQLEXPRESS;Initial Catalog=RosterViewer;Persist Security Info=True;User ID=rosterApp" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="RosterViewerConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Team" Member="Teams">
+    <Type Name="Team">
+      <Column Name="teamId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="teamName" Type="System.String" DbType="NVarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="imageId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Team_Player" Member="Players" ThisKey="teamId" OtherKey="teamId" Type="Player" />
+      <Association Name="Team_Stat" Member="Stats" ThisKey="teamId" OtherKey="entityId" Type="Stat" />
+      <Association Name="Image_Team" Member="Image" ThisKey="imageId" OtherKey="imageId" Type="Image" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EntityType" Member="EntityTypes">
+    <Type Name="EntityType">
+      <Column Name="entityTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="entityType" Member="entityType1" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Association Name="EntityType_Stat" Member="Stats" ThisKey="entityTypeId" OtherKey="entityTypeId" Type="Stat" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Image" Member="Images">
+    <Type Name="Image">
+      <Column Name="imageId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="imageFileName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="imageData" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Association Name="Image_Team" Member="Teams" ThisKey="imageId" OtherKey="imageId" Type="Team" />
+      <Association Name="Image_Player" Member="Players" ThisKey="imageId" OtherKey="imageId" Type="Player" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Player" Member="Players">
+    <Type Name="Player">
+      <Column Name="playerId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="playerScreenName" Type="System.String" DbType="NVarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="playerFirstName" Type="System.String" DbType="NVarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="playerLastName" Type="System.String" DbType="NVarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="imageId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="teamId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Player_Stat" Member="Stats" ThisKey="playerId" OtherKey="entityId" Type="Stat" />
+      <Association Name="Image_Player" Member="Image" ThisKey="imageId" OtherKey="imageId" Type="Image" IsForeignKey="true" />
+      <Association Name="Team_Player" Member="Team" ThisKey="teamId" OtherKey="teamId" Type="Team" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Stat" Member="Stats">
+    <Type Name="Stat">
+      <Column Name="statId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="entityTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="entityId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="statName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="statValue" Type="System.String" DbType="NVarChar(17) NOT NULL" CanBeNull="false" />
+      <Association Name="EntityType_Stat" Member="EntityType" ThisKey="entityTypeId" OtherKey="entityTypeId" Type="EntityType" IsForeignKey="true" />
+      <Association Name="Team_Stat" Member="Team" ThisKey="entityId" OtherKey="teamId" Type="Team" IsForeignKey="true" />
+      <Association Name="Player_Stat" Member="Player" ThisKey="entityId" OtherKey="playerId" Type="Player" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="RosterManager">
+  <DataContextMoniker Name="/RosterManagerDataContext" />
+  <nestedChildShapes>
+    <classShape Id="ff9996eb-9543-4e68-ac07-1cbe572c4342" absoluteBounds="3.5, 1.25, 2, 1.3862939453125">
+      <DataClassMoniker Name="/RosterManagerDataContext/Team" />
+      <nestedChildShapes>
+        <elementListCompartment Id="35754b2b-96c9-4575-bb92-763e1000252e" absoluteBounds="3.515, 1.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4bc67b08-707d-4cf2-8ef5-79849c0e5e06" absoluteBounds="0.75, 4.25, 2, 1.1939925130208327">
+      <DataClassMoniker Name="/RosterManagerDataContext/EntityType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="26cd01ac-99eb-4375-8e3e-3c46e771ea28" absoluteBounds="0.765, 4.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e99816e9-09d2-4269-b14f-00ef42bdf378" absoluteBounds="0.75, 1.25, 2, 1.3862939453125">
+      <DataClassMoniker Name="/RosterManagerDataContext/Image" />
+      <nestedChildShapes>
+        <elementListCompartment Id="259a870a-7801-4665-9f12-099430cc3c75" absoluteBounds="0.765, 1.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="21e48ae2-3542-4c37-9c11-775b65ec849b" absoluteBounds="6.25, 0.875, 2, 1.9631982421875">
+      <DataClassMoniker Name="/RosterManagerDataContext/Player" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7a2efad0-15f4-42ef-91cd-065af28dbaeb" absoluteBounds="6.265, 1.335, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1720b824-8259-4a49-b404-787cf5078422" absoluteBounds="3.5, 3.875, 2, 1.7708968098958327">
+      <DataClassMoniker Name="/RosterManagerDataContext/Stat" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a3dfc71c-b160-4cbe-b7ac-df85a00ccfb1" absoluteBounds="3.515, 4.335, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 1.94314697265625); (3.5 : 1.94314697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/RosterManagerDataContext/Image/Image_Team" />
+      <nodes>
+        <classShapeMoniker Id="e99816e9-09d2-4269-b14f-00ef42bdf378" />
+        <classShapeMoniker Id="ff9996eb-9543-4e68-ac07-1cbe572c4342" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 2.6362939453125); (3.125 : 3.0112939453125); (3.125 : 3.2131982421875); (4.41666666666667 : 3.2131982421875 : JumpStart); (4.58333333333333 : 3.2131982421875 : JumpEnd); (5.875 : 3.2131982421875); (6.25 : 2.8381982421875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/RosterManagerDataContext/Image/Image_Player" />
+      <nodes>
+        <classShapeMoniker Id="e99816e9-09d2-4269-b14f-00ef42bdf378" />
+        <classShapeMoniker Id="21e48ae2-3542-4c37-9c11-775b65ec849b" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 1.94314697265625); (6.25 : 1.94314697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/RosterManagerDataContext/Team/Team_Player" />
+      <nodes>
+        <classShapeMoniker Id="ff9996eb-9543-4e68-ac07-1cbe572c4342" />
+        <classShapeMoniker Id="21e48ae2-3542-4c37-9c11-775b65ec849b" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 4.84699625651042); (3.5 : 4.84699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/RosterManagerDataContext/EntityType/EntityType_Stat" />
+      <nodes>
+        <classShapeMoniker Id="4bc67b08-707d-4cf2-8ef5-79849c0e5e06" />
+        <classShapeMoniker Id="1720b824-8259-4a49-b404-787cf5078422" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.5 : 2.6362939453125); (4.5 : 3.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/RosterManagerDataContext/Team/Team_Stat" />
+      <nodes>
+        <classShapeMoniker Id="ff9996eb-9543-4e68-ac07-1cbe572c4342" />
+        <classShapeMoniker Id="1720b824-8259-4a49-b404-787cf5078422" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(7.2812525 : 2.8381982421875); (7.2812525 : 4.76044840494792); (5.5 : 4.76044840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/RosterManagerDataContext/Player/Player_Stat" />
+      <nodes>
+        <classShapeMoniker Id="21e48ae2-3542-4c37-9c11-775b65ec849b" />
+        <classShapeMoniker Id="1720b824-8259-4a49-b404-787cf5078422" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

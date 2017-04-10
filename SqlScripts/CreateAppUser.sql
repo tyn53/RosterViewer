@@ -1,0 +1,11 @@
+﻿USE [master]
+GO
+
+/*
+	
+*/
+
+CREATE LOGIN [RosterApp] WITH PASSWORD=N'roster', DEFAULT_DATABASE=[master], DEFAULT_LANGUAGE=[us_english], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF
+GO
+
+
