@@ -13,8 +13,8 @@
                 <div class="col-md-4 entityContainer">
                     <Center>
                         <div class="entityBox">
-                            <a href="@Url.Action("Details","Team", new { id = item.ID })">
-                                <img class="banner" src="@Url.Action("Image", "Image", new {id = item.BannerImageId})" />
+                            <a href="@Url.Action("Details","Team", new { id = item.TeamId })">
+                                <img class="banner highlight" src="@Url.Action("Image", "Image", new {id = item.BannerImageId})" />
                             </a>
                         </div>
                         <label class="layeredLabel">@Html.DisplayFor(modelItem => item.Name)</label>
@@ -27,7 +27,7 @@
                     <div class="entityBox">
                         <a href="@Url.Action("Add","Team")">
                             <div class="upload" style="height:200px; width:200px">
-                                <i class="glyphicon glyphicon-upload "></i>
+                                <i class="glyphicon glyphicon-plus "></i>
                             </div>
 
                         </a>

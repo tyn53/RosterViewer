@@ -13,7 +13,7 @@ namespace Gmi.RosterManager.Controllers
         public ActionResult Add(int entityId, Models.EntityType type)
         {
             var stat = new StatModel();
-            stat.entityID = entityId;
+            stat.EntityId = entityId;
             stat.EntityType = type;
             return View(stat);
         }
@@ -23,7 +23,7 @@ namespace Gmi.RosterManager.Controllers
             var statRepo = new StatRepository();
             var stat = statRepo.GetStatById(statId);
 
-            return View(stat);
+            return View(ConvertToViewModel(stat));
         }
 
         public ActionResult Delete(int statId)
@@ -32,17 +32,19 @@ namespace Gmi.RosterManager.Controllers
             var statRepo = new StatRepository();
             var tempStat = statRepo.GetStatById(statId);
             statRepo.DeleteStat(statId);
-            return RedirectToAction("Details", ConvertToViewModel(tempStat).EntityType.ToString(), new { ID = ConvertToViewModel(tempStat).entityID });
+            return RedirectToAction("Details", ConvertToViewModel(tempStat).EntityType.ToString(), new { ID = ConvertToViewModel(tempStat).EntityId });
         }
 
         [HttpPost]
         public ActionResult Create(StatModel stat)
         {
             var statRepo = new StatRepository();
+            if (stat.Value == null)
+                stat.Value = string.Empty;
             
             statRepo.AddStat(ConvertToDbModel(stat));
-
-            return RedirectToAction("Details", stat.EntityType.ToString(), new { ID = stat.entityID });
+            
+            return RedirectToAction("Details", stat.EntityType.ToString(), new { ID = stat.EntityId });
         }
 
         [HttpPost]
@@ -50,19 +52,19 @@ namespace Gmi.RosterManager.Controllers
         {
             var statRepo = new StatRepository();
 
-            statRepo.EditStat(ConvertToDbModel(stat));
+            statRepo.EditStat(stat);
 
-            return RedirectToAction("Details", stat.EntityType.ToString(), new { ID = stat.entityID });
+            return RedirectToAction("Details", stat.EntityType.ToString(), new { ID = stat.EntityId });
         }
 
         public static StatModel ConvertToViewModel(Stat dbStat)
         {
             var stat = new StatModel()
             {
-                StatID = dbStat.statId,
+                StatId = dbStat.statId,
                 Name = dbStat.statName,
                 Value = dbStat.statValue,
-                entityID = dbStat.entityId,
+                EntityId = dbStat.entityId,
                 EntityType = (Models.EntityType)dbStat.entityTypeId,
             };
 
@@ -75,7 +77,7 @@ namespace Gmi.RosterManager.Controllers
             {
                 statName = stat.Name,
                 statValue = stat.Value,
-                entityId = stat.entityID,
+                entityId = stat.EntityId,
                 entityTypeId = (int)stat.EntityType,
             };
 

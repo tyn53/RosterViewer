@@ -52,6 +52,29 @@ namespace Gmi.RosterManager.Controllers
             return View();
         }
 
+        public ActionResult Edit(int id)
+        {
+            var teamRepo = new TeamRepository();
+            var teams = teamRepo.GetAllTeams();
+
+            var teamList = new List<SelectListItem>();
+
+            foreach (var team in teams)
+            {
+                teamList.Add(new SelectListItem()
+                {
+                    Text = team.teamName,
+                    Value = team.teamId.ToString(),
+                });
+            }
+
+            ViewData["Teams"] = teamList;
+            var playerRepo = new PlayerRepository();
+            var player = playerRepo.GetPlayerById(id);
+
+            return View(ConvertToViewModel(player));
+        }
+
         public ActionResult Details(int id)
         {
             var playerRepo = new PlayerRepository();
@@ -68,13 +91,40 @@ namespace Gmi.RosterManager.Controllers
         }
 
         [HttpPost]
+        public ActionResult Update(PlayerModel player)
+        {
+            if (ImageController.ValidateImage(player.AvatarImageFile))
+            {
+                var playerRepo = new PlayerRepository();
+
+                playerRepo.EditPlayer(player);
+
+                return RedirectToAction("Details", "Team", new { ID = player.TeamId });
+            }
+            else
+            {
+                ViewBag.Error = "Invalid image. Image must be less than 4MB and a .jpg, .gif, .png or .svg";
+                return RedirectToAction("Add", "Player");
+            }
+
+        }
+
+        [HttpPost]
         public ActionResult Create(PlayerModel player)
         {
-            var playerRepo = new PlayerRepository();
+            if (ImageController.ValidateImage(player.AvatarImageFile))
+            {
+                var playerRepo = new PlayerRepository();
 
-            playerRepo.AddPlayer(ConvertToDbModel(player));
+                playerRepo.AddPlayer(ConvertToDbModel(player));
 
-            return RedirectToAction("Details", "Team", new { ID = player.TeamID });
+                return RedirectToAction("Details", "Team", new { ID = player.TeamId });
+            }
+            else
+            {
+                ViewBag.Error = "Invalid image. Image must be less than 4MB and a .jpg, .gif, .png or .svg";
+                return RedirectToAction("Add", "Player");
+            }
 
         }
 
@@ -82,13 +132,13 @@ namespace Gmi.RosterManager.Controllers
         {
             var player = new PlayerModel()
             {
-                PlayerID = dbPlayer.playerId,
+                PlayerId = dbPlayer.playerId,
                 FirstName = dbPlayer.playerFirstName,
                 LastName = dbPlayer.playerLastName,
                 ScreenName = dbPlayer.playerScreenName,
-                AvatarImageID = dbPlayer.imageId == null ? -1 : (int)dbPlayer.imageId,
+                AvatarImageId = dbPlayer.imageId == null ? -1 : (int)dbPlayer.imageId,
                 TeamName = dbPlayer.Team.teamName,
-                TeamID = dbPlayer.teamId == null ? -1 : (int)dbPlayer.teamId,
+                TeamId = dbPlayer.teamId == null ? -1 : (int)dbPlayer.teamId,
             };
 
             foreach(var stat in dbPlayer.Stats)
@@ -103,7 +153,7 @@ namespace Gmi.RosterManager.Controllers
         {
             var dbPlayer = new Player()
             {
-                playerId = player.PlayerID,
+                playerId = player.PlayerId,
                 playerFirstName = player.FirstName,
                 playerLastName = player.LastName,
                 playerScreenName = player.ScreenName,
@@ -114,7 +164,7 @@ namespace Gmi.RosterManager.Controllers
                     imageContentType = player.AvatarImageFile.ContentType,
 
                 } : null,
-                teamId = player.TeamID,
+                teamId = player.TeamId,
             };
 
             foreach (var stat in player.Stats)

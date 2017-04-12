@@ -167,15 +167,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Images\default-user-image.png" />
     <Content Include="Content\Images\default.jpg" />
-    <Content Include="Content\Images\dota2.jpg" />
-    <Content Include="Content\Images\HeroesOfTheStorm.jpg" />
-    <Content Include="Content\Images\LeagueOfLegends.jpg" />
-    <Content Include="Content\Images\Logo.svg" />
-    <Content Include="Content\Images\LogoBW.svg" />
-    <Content Include="Content\Images\LogoBWNoLetters.svg" />
-    <Content Include="Content\Images\No_image_available.svg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

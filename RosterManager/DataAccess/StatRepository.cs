@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Gmi.RosterManager.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -40,15 +41,16 @@ namespace Gmi.RosterManager.DataAccess
             }
         }
 
-        public void EditStat(Stat stat)
+        public void EditStat(StatModel stat)
         {
             using (var dbContext = new RosterManagerDataContext())
             {
                 var dbStat = (from s in dbContext.Stats
-                                where s.statId == stat.statId
+                                where s.statId == stat.StatId
                                 select s).First();
 
-                dbStat.statValue = stat.statValue;
+                dbStat.statName = stat.Name;
+                dbStat.statValue = stat.Value;
                 
                 dbContext.SubmitChanges();
 

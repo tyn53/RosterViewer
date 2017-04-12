@@ -46,24 +46,26 @@ namespace Gmi.RosterManager.DataAccess
             }
         }
 
-        public void UpdateTeam(Team team)
+        public void UpdateTeam(TeamModel team)
         {
             using (var dbContext = new RosterManagerDataContext())
             {
-                var dbTeam = (from t in dbContext.Teams
-                              where t.teamId == team.teamId
-                              select t).First();
-
-                if (team.Image != null)
+                var dbTeam = dbContext.Teams.Single(t => t.teamId == team.TeamId);
+                
+                if (team.BannerImageFile != null)
                 {
                     var unwantedImage = dbTeam.Image;
                     dbContext.Images.DeleteOnSubmit(unwantedImage);
-                    dbTeam.Image = team.Image;
+                    dbTeam.Image = new Image()
+                    {
+                        imageFileName = team.BannerImageFile.FileName,
+                        imageContent = ImageController.ConvertToBytes(team.BannerImageFile),
+                        imageContentType = team.BannerImageFile.ContentType,
+                    };
                 }
-                
-                dbTeam.teamName = team.teamName;
-                
 
+                dbTeam.teamName = team.Name;
+                
                 dbContext.SubmitChanges();
             }
         }
@@ -79,6 +81,16 @@ namespace Gmi.RosterManager.DataAccess
                 var unwantedImage = unwantedTeam.Image;
                 if (unwantedImage != null)
                     dbContext.Images.DeleteOnSubmit(unwantedImage);
+
+                foreach(var player in unwantedTeam.Players)
+                {
+                    dbContext.Players.DeleteOnSubmit(player);
+                }
+
+                foreach(var stat in unwantedTeam.Stats)
+                {
+                    dbContext.Stats.DeleteOnSubmit(stat);
+                }
 
                 dbContext.Teams.DeleteOnSubmit(unwantedTeam);
 

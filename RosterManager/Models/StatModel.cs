@@ -7,10 +7,10 @@ namespace Gmi.RosterManager.Models
 {
     public class StatModel
     {
-        public int StatID { get; set; }
+        public int StatId { get; set; }
         public string Name { get; set; }
         public string Value { get; set; }
-        public int entityID { get; set; }
+        public int EntityId { get; set; }
         public EntityType EntityType { get; set; }
     }
 

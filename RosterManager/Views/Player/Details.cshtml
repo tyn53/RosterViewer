@@ -7,17 +7,21 @@
 <div style="padding-top:20px">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <a data-toggle="collapse" href="#statPanel">
-                <h4 class="panel-title no-underline inline">@Html.DisplayFor(model => model.FirstName) &quot;@Html.DisplayFor(model => model.ScreenName) &quot; @Html.DisplayFor(model => model.LastName) - Statistics</h4>
-            </a>
-            <a class="btn btn-default pull-right text-center" style="margin-top:-8px; margin-right:-13px" onclick="@("window.location.href='" + Url.Action("Delete", "Player", new { id = Model.PlayerID }, null) + "'");"><i class="glyphicon glyphicon-trash" style="color:#C60000; margin-right:1px; margin-top:2px"></i></a>
+            <h4 class="panel-title no-underline inline">@Html.DisplayFor(model => model.FirstName) &quot;@Html.DisplayFor(model => model.ScreenName) &quot; @Html.DisplayFor(model => model.LastName) - Statistics</h4>
+            <div class="btn-group pull-right" style="margin-top:-8px; margin-right:-13px">
+                <button class="btn btn-default text-center" alt="Add Statistic" onclick="@("window.location.href='" + Url.Action("Add", "Stat", new { entityId = Model.PlayerId, type = Gmi.RosterManager.Models.EntityType.Player }, null) + "'");"><i class="glyphicon glyphicon-plus" style="margin-top:2px"></i></button>
+                <button class="btn btn-default text-center" alt="Edit Team" onclick="@("window.location.href='" + Url.Action("Edit", "Player", new { id = Model.PlayerId }, null) + "'");"><i class="glyphicon glyphicon-edit" style="margin-top:2px"></i></button>
+                <button class="btn btn-default text-center" alt="Delete Team" onclick="@("window.location.href='" + Url.Action("Delete", "Player", new { id = Model.PlayerId }, null) + "'");"><i class="glyphicon glyphicon-trash" style="color:#C60000; margin-right:1px; margin-top:2px"></i></button>
+            </div>
         </div>
-        <div id="statPanel" class="panel-collapse">
+        <div id="statPanel">
             <div class="panel-body">
                 <div class="col-sm-3 entityContainer">
-                    <div class="entityBox">
-                        <img src="@Url.Action("Image","Image", new { id = Model.AvatarImageID })" class="banner" />
-                    </div>
+                    <center>
+                        <div class="entityBox">
+                            <img src="@Url.Action("Image","Image", new { id = Model.AvatarImageId })" class="banner" />
+                        </div>
+                    </center>
                 </div>
                 <div class="col-sm-9">
                     <dl class="dl-horizontal">
@@ -49,34 +53,36 @@
 
                         <dd>
                             @Html.DisplayFor(model => model.TeamName)
-                            
+
                         </dd>
 
                         @foreach (var item in Model.Stats.OrderBy(s => s.Name))
                         {
-                            <dt>@Html.DisplayFor(modelItem => item.Name) </dt>
+                            <dt>
+                                <a href="@("#teamNameButtons"+ item.StatId)" data-toggle="collapse">
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </a>
+                            </dt>
                             <dd>
-                                <a href="@("#teamNameButtons"+ item.StatID)" data-toggle="collapse">
+                                <a href="@("#teamNameButtons"+ item.StatId)" data-toggle="collapse">
                                     @Html.DisplayFor(modelItem => item.Value)
                                 </a>
-                                <div id="@("teamNameButtons"+ item.StatID)" class="collapse">
+                                <div id="@("teamNameButtons"+ item.StatId)" class="collapse">
                                     <div class="btn-group">
-                                        <button class="btn btn-default" onclick="@("window.location.href='" + Url.Action("Edit", "Stat", new { statId = item.StatID }, null) + "'")"><i class="glyphicon glyphicon-edit"></i> </button>
-                                        <button class="btn btn-default" onclick="@("window.location.href='" + Url.Action("Delete", "Stat", new { statId = item.StatID }, null) + "'")"><i class="glyphicon glyphicon-remove"></i> </button>
+                                        <button class="btn btn-default" onclick="@("window.location.href='" + Url.Action("Edit", "Stat", new { statId = item.StatId }, null) + "'")"><i class="glyphicon glyphicon-edit"></i> </button>
+                                        <button class="btn btn-default" onclick="@("window.location.href='" + Url.Action("Delete", "Stat", new { statId = item.StatId }, null) + "'")"><i class="glyphicon glyphicon-remove"></i> </button>
                                     </div>
                                 </div>
 
-</dd>
+                            </dd>
                         }
                     </dl>
-                    <button class="btn btn-default pull-right" onclick="@("window.location.href='" + Url.Action("Add","Stat", new { entityId = Model.PlayerID, type = Gmi.RosterManager.Models.EntityType.Player }, null) + "'")">Add Statistic</button>
                 </div>
             </div>
         </div>
     </div>
 
     <p>
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
         @Html.ActionLink("Back to List", "Index")
     </p>
 

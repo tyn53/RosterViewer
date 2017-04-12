@@ -9,14 +9,14 @@ namespace Gmi.RosterManager.Models
     {
         private List<StatModel> stats;
 
-        public int PlayerID { get; set; }
+        public int PlayerId { get; set; }
         public string ScreenName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int TeamID { get; set; }
+        public int TeamId { get; set; }
         public string TeamName { get; set; }
-        public int TeamBannerImageID { get; set; }
-        public int AvatarImageID { get; set; }
+        public int TeamBannerImageId { get; set; }
+        public int AvatarImageId { get; set; }
         public HttpPostedFileBase AvatarImageFile { get; set; }
         public List<StatModel> Stats
         {

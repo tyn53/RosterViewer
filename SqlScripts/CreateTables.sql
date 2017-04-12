@@ -8,7 +8,6 @@ CREATE TABLE Image (imageId INT NOT NULL IDENTITY(1,1),
 					imageContent VARBINARY(MAX) NOT NULL,
 					imageContentType NVARCHAR(100) NOT NULL,
 					CONSTRAINT PK_Image PRIMARY KEY CLUSTERED (imageId),
-					CONSTRAINT IX_Image UNIQUE (imageFileName));
 
 CREATE TABLE Team (teamId INT NOT NULL IDENTITY(1,1),
 				   teamName NVARCHAR(32) NOT NULL,

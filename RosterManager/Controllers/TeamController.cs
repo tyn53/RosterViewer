@@ -73,16 +73,16 @@ namespace Gmi.RosterManager.Controllers
         {
             var teamRepo = new TeamRepository();
 
-            teamRepo.UpdateTeam(ConvertToDbModel(model));
+            teamRepo.UpdateTeam(model);
 
-            return RedirectToAction("Details", "Team", new { id = model.ID });
+            return RedirectToAction("Details", "Team", new { id = model.TeamId });
         }
 
         public static TeamModel ConvertToViewModel(Team dbTeam)
         {
             var team = new TeamModel()
             {
-                ID = dbTeam.teamId,
+                TeamId = dbTeam.teamId,
                 Name = dbTeam.teamName,
                 BannerImageId = (dbTeam.imageId == null ? -1 : (int)dbTeam.imageId),
             };
@@ -104,9 +104,9 @@ namespace Gmi.RosterManager.Controllers
         {
             var dbTeam = new Team()
             {
-                teamId = team.ID,
+                teamId = team.TeamId,
                 teamName = team.Name,
-                Image = new Image()
+                Image = team.BannerImageFile == null ? null : new Image()
                 {
                     imageFileName = team.BannerImageFile.FileName,
                     imageContent = ImageController.ConvertToBytes(team.BannerImageFile),

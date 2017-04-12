@@ -21,16 +21,44 @@ namespace Gmi.RosterManager.Controllers
             }
             else
             {
-                return File(Server.MapPath(Url.Content("~/Content/Images/default.jpg")), "image/jpg", "default.jpg");
+                return File(Server.MapPath(Url.Content("~/Content/Images/default.jpg")), "image/jpeg", "default.jpg");
             }
         }
 
-       
+        public static bool ValidateImage (HttpPostedFileBase image)
+        {
+            if (image?.ContentLength > 4194304)
+                return false;
+
+            if (image?.ContentType != "image/jpeg" &&
+                image?.ContentType != "image/png" &&
+                image?.ContentType != "image/gif" &&
+                image?.ContentType != "image/svg+xml")
+                return false;
+            
+            return true;
+
+        }
+
+        public static Image ConverToDbModel(HttpPostedFileBase image)
+        {
+            var dbImage = new Image()
+            {
+                imageFileName = image.FileName,
+                imageContent = ConvertToBytes(image),
+                imageContentType = image.ContentType
+            };
+
+            return dbImage;
+        }
+        
+
         public static byte[] ConvertToBytes(HttpPostedFileBase image)
         {
             byte[] imageData;
             var reader = new BinaryReader(image.InputStream);
             imageData = reader.ReadBytes((int)image.ContentLength);
+
             return imageData;
         }
     }

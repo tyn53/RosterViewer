@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Gmi.RosterManager.Controllers;
+using Gmi.RosterManager.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace Gmi.RosterManager.DataAccess
 {
@@ -38,21 +38,31 @@ namespace Gmi.RosterManager.DataAccess
             }
         }
 
-        public void EditPlayer(Player player)
+        public void EditPlayer(PlayerModel player)
         {
             using (var dbContext = new RosterManagerDataContext())
             {
                 var dbPlayer = (from p in dbContext.Players
-                                where p.playerId == player.playerId
+                                where p.playerId == player.PlayerId
                                 select p).First();
 
-                dbPlayer.playerFirstName = player.playerFirstName;
-                dbPlayer.playerLastName = player.playerLastName;
-                dbPlayer.playerScreenName = player.playerScreenName;
-                dbPlayer.Image = player.Image;
-                dbPlayer.Team = player.Team;
-                dbPlayer.Stats = player.Stats;
+                if (player.AvatarImageFile != null)
+                {
+                    var unwantedImage = dbPlayer.Image;
+                    dbContext.Images.DeleteOnSubmit(unwantedImage);
+                    dbPlayer.Image = new Image()
+                    {
+                        imageFileName = player.AvatarImageFile.FileName,
+                        imageContent = ImageController.ConvertToBytes(player.AvatarImageFile),
+                        imageContentType = player.AvatarImageFile.ContentType,
+                    };
+                }
 
+                dbPlayer.playerFirstName = player.FirstName;
+                dbPlayer.playerLastName = player.LastName;
+                dbPlayer.playerScreenName = player.ScreenName;
+                dbPlayer.teamId = player.TeamId;
+                
                 dbContext.SubmitChanges();
                 
             }
@@ -62,11 +72,20 @@ namespace Gmi.RosterManager.DataAccess
         {
             using (var dbContext = new RosterManagerDataContext())
             {
-                var dbPlayer = (from p in dbContext.Players
-                                where p.playerId == playerId
-                                select p).First();
+                var unwantedPlayer = (from player in dbContext.Players
+                                where player.playerId == playerId
+                                select player).First();
 
-                dbContext.Players.DeleteOnSubmit(dbPlayer);
+                var unwantedImage = unwantedPlayer.Image;
+                if (unwantedImage != null)
+                    dbContext.Images.DeleteOnSubmit(unwantedImage);
+
+                foreach(var stat in unwantedPlayer.Stats)
+                {
+                    dbContext.Stats.DeleteOnSubmit(stat);
+                }
+
+                dbContext.Players.DeleteOnSubmit(unwantedPlayer);
                 dbContext.SubmitChanges();
             }
         }

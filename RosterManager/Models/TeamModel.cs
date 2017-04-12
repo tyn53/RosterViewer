@@ -11,7 +11,7 @@ namespace Gmi.RosterManager.Models
         private List<PlayerModel> players;
         private List<StatModel> stats;
 
-        public int ID { get; set; }
+        public int TeamId { get; set; }
         public string Name { get; set; }
         public int BannerImageId { get; set; }
         public HttpPostedFileBase BannerImageFile { get; set; }
