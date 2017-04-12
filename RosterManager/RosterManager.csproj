@@ -217,6 +217,7 @@
     <Content Include="Views\Player\Details.cshtml" />
     <Content Include="Views\Stat\Add.cshtml" />
     <Content Include="Views\Stat\Edit.cshtml" />
+    <Content Include="Views\Shared\DbError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,11 +1,19 @@
-﻿USE [master]
+USE [master]
 GO
+
+-- Set Sql server to use sql server logins or change the connection string in the application web config to use windows authentication
 
 CREATE DATABASE [RosterViewer]
 GO
 
-CREATE LOGIN [RosterApp] WITH PASSWORD=N'roster', DEFAULT_DATABASE=[master], DEFAULT_LANGUAGE=[us_english], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF
+
+--Create Application Login
+CREATE LOGIN [RosterApp] WITH DEFAULT_DATABASE=[master], DEFAULT_LANGUAGE=[us_english], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF
 GO
+
+ALTER LOGIN [RosterApp] WITH PASSWORD='roster'
+GO
+
 
 USE [RosterViewer]
 GO
@@ -21,11 +29,8 @@ GO
 EXEC sp_addrolemember N'db_datawriter', N'RosterApp'
 GO
 
-/*
-	Create tables for RosterViewer
-	Author: Jason Bush
-*/
 
+--	Create tables for RosterViewer
 USE [RosterViewer]
 GO
 

@@ -13,19 +13,19 @@
             <div class="panel-body">
                 @foreach (var item in Model)
             {
-                    <div class="col-md-4 entityContainer">
+                    <div class="col-md-3 entityContainer">
                         <Center>
                             <div class="entityBox">
 
                                 <a href="@Url.Action("Details","Player", new { id = item.PlayerId })">
-                                    <img class="banner highlight" src="@Url.Action("Image", "Image", new {id = item.AvatarImageId})" />
+                                    <img class="avatar highlight" src="@Url.Action("Image", "Image", new {id = item.AvatarImageId})" />
                                 </a>
                             </div>
                             <label class="layeredLabel">@Html.DisplayFor(modelItem => item.FirstName) &quot;@Html.DisplayFor(modelItem => item.ScreenName)&quot; @Html.DisplayFor(modelItem => item.LastName)</label>
                         </Center>
                     </div>
                 }
-                <div class="col-md-4 entityContainer">
+                <div class="col-md-3 entityContainer">
                     <Center>
                         <div class="entityBox">
 

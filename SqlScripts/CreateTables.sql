@@ -3,11 +3,14 @@
 	Author: Jason Bush
 */
 
+USE [RosterViewer]
+GO
+
 CREATE TABLE Image (imageId INT NOT NULL IDENTITY(1,1),
 				    imageFileName NVARCHAR(128),
 					imageContent VARBINARY(MAX) NOT NULL,
 					imageContentType NVARCHAR(100) NOT NULL,
-					CONSTRAINT PK_Image PRIMARY KEY CLUSTERED (imageId),
+					CONSTRAINT PK_Image PRIMARY KEY CLUSTERED (imageId));
 
 CREATE TABLE Team (teamId INT NOT NULL IDENTITY(1,1),
 				   teamName NVARCHAR(32) NOT NULL,

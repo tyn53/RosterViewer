@@ -36,21 +36,35 @@ textarea {
     padding-bottom: 20px;
 }
 
+.entityBox:hover {
+    border:2px solid;
+    border-color: #2C3539;
+}
+
 .entityBox {
     background-color: #EEE;
     height: 200px;
     margin: auto;
-    box-shadow: rgba(0,0,0,.4) 5px 5px 5px;
+    box-shadow:  0, 0, 2px 2px rgba(0,0,0,.4);
     overflow: hidden;
 }
 
 .banner {
     height: 100%;
     width: auto;
+    margin: 0 -100%;
+    
+}
+
+.avatar {
+    height: 100%;
+    width: auto;
+    margin: 0 -100%;
 }
 
 .highlight:hover {
-    opacity: .7;
+    -webkit-filter: none;
+    filter: none;
 }
 
 .inline {
@@ -68,12 +82,12 @@ textarea {
 
 .layeredLabel {
     position: absolute;
-    bottom: 15px;
-    left: 15px;
+    bottom: 17px;
+    left: 17px;
     background-color: #EEE;
-    background-color: rgba(256,256,256,.5);
+    background-color: rgba(256,256,256,.7);
     font-size: 20pt;
-    width: Calc(100% - 30px);
+    width: Calc(100% - 34px);
 }
 
 a {
