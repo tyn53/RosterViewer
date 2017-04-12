@@ -13,8 +13,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GMIRosterManager</RootNamespace>
-    <AssemblyName>GMIRosterManager</AssemblyName>
+    <RootNamespace>Gmi.RosterManager</RootNamespace>
+    <AssemblyName>RosterManager</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -143,26 +143,39 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ImageController.cs" />
+    <Compile Include="Controllers\PlayerController.cs" />
+    <Compile Include="Controllers\StatController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
-    <Compile Include="Controllers\TeamsController.cs" />
     <Compile Include="DataAccess\ImageRepository.cs" />
+    <Compile Include="DataAccess\PlayerRepository.cs" />
     <Compile Include="DataAccess\RosterManager.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RosterManager.dbml</DependentUpon>
     </Compile>
+    <Compile Include="DataAccess\StatRepository.cs" />
     <Compile Include="DataAccess\TeamRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ImageModel.cs" />
+    <Compile Include="Models\PlayerModel.cs" />
+    <Compile Include="Models\StatModel.cs" />
     <Compile Include="Models\TeamModel.cs" />
-    <Compile Include="Models\TeamsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\default-user-image.png" />
+    <Content Include="Content\Images\default.jpg" />
+    <Content Include="Content\Images\dota2.jpg" />
+    <Content Include="Content\Images\HeroesOfTheStorm.jpg" />
+    <Content Include="Content\Images\LeagueOfLegends.jpg" />
     <Content Include="Content\Images\Logo.svg" />
+    <Content Include="Content\Images\LogoBW.svg" />
+    <Content Include="Content\Images\LogoBWNoLetters.svg" />
+    <Content Include="Content\Images\No_image_available.svg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -202,12 +215,19 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Teams\Index.cshtml" />
-    <Content Include="Views\Team\Team.cshtml" />
+    <Content Include="Views\Team\Index.cshtml" />
+    <Content Include="Views\Team\Details.cshtml" />
+    <Content Include="Views\Team\Edit.cshtml" />
+    <Content Include="Views\Team\Add.cshtml" />
+    <Content Include="Views\Player\Index.cshtml" />
+    <Content Include="Views\Player\Add.cshtml" />
+    <Content Include="Views\Player\Edit.cshtml" />
+    <Content Include="Views\Player\Details.cshtml" />
+    <Content Include="Views\Stat\Add.cshtml" />
+    <Content Include="Views\Stat\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Image\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -8,22 +8,33 @@ namespace Gmi.RosterManager.DataAccess
 {
     public class ImageRepository
     {
-        private RosterManagerDataContext dbContext;
 
         public ImageRepository()
         {
-            dbContext = new RosterManagerDataContext();
+            
         }
 
-        public byte[] getImageById(int imageId)
+        public Image GetImageById(int imageId)
         {
+            var dbContext = new RosterManagerDataContext();
             var result = (from image in dbContext.Images
                           where image.imageId == imageId
-                          select image.imageData).First().ToArray();
+                          select image).First();
             
             return result;
         }
+        public void DeleteImage (int imageId)
+        {
+            using (var dbContext = new RosterManagerDataContext())
+            {
+                var unwantedImage = (from image in dbContext.Images
+                                     where image.imageId == imageId
+                                     select image).First();
 
+                dbContext.Images.DeleteOnSubmit(unwantedImage);
+                dbContext.SubmitChanges();
+            }
+        }
         
     }
 }

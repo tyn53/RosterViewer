@@ -1,0 +1,40 @@
+﻿@model List<Gmi.RosterManager.Models.TeamModel>
+@{
+    ViewBag.Title = "Gmi Roster Manager";
+}
+<div style="padding-top:20px">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2 class="panel-title">GMI Tournament Roster</h2>
+        </div>
+        <div class="panel-body">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4 entityContainer">
+                    <Center>
+                        <div class="entityBox">
+                            <a href="@Url.Action("Details","Team", new { id = item.ID })">
+                                <img class="banner" src="@Url.Action("Image", "Image", new {id = item.BannerImageId})" />
+                            </a>
+                        </div>
+                        <label class="layeredLabel">@Html.DisplayFor(modelItem => item.Name)</label>
+                    </Center>
+                </div>
+
+            }
+            <div class="col-md-4 entityContainer">
+                <Center>
+                    <div class="entityBox">
+                        <a href="@Url.Action("Add","Team")">
+                            <div class="upload" style="height:200px; width:200px">
+                                <i class="glyphicon glyphicon-upload "></i>
+                            </div>
+
+                        </a>
+                    </div>
+                    <label class="layeredLabel">Add New Team</label>
+                </Center>
+            </div>
+        </div>
+    </div>
+</div>

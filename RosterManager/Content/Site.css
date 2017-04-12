@@ -1,7 +1,16 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font-family: 'Roboto', sans-serif;
+    background-color: #E0E1E1;
 }
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+}
+
+
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -22,4 +31,84 @@ select,
 textarea {
     max-width: 280px;
 }
+.entityContainer {
+    padding-bottom:20px;
+}
+.entityBox {
+    background-color:#EEE;
+    height: 200px;
+    margin: auto;
+    box-shadow: rgba(0,0,0,.4) 5px 5px 5px;
+    overflow: hidden;
+}
+
+.banner {
+    height: 100%;
+    width: auto;
+}
+
+    .banner:hover {
+        opacity: .7;
+    }
+
+.inline {
+    display: inline-block;
+}
+
+.upload {
+    text-align: center;
+    font-size: 50pt;
+}
+.upload i {
+    margin-top: 50px;
+}
+
+.layeredLabel {
+    position: absolute;
+    bottom:15px; 
+    left:15px;
+    background-color:#EEE;
+    background-color:rgba(256,256,256,.5);
+    font-size: 20pt;
+    width: Calc(100% - 30px);
+}
+
+a {
+    color: #2C3539;
+}
+
+    a:link {
+        color: #0E1E25;
+    }
+
+    a:hover,
+    a:focus {
+        color: #60737B;
+        text-decoration: underline;
+    }
+    
+
+
+
+.title {
+    background-color: #999;
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+a:hover, a:visited, a:link, a:active {
+    text-decoration: none;
+}
+
+.collapse.width{
+    height: auto;
+    -webkit-transition: width 0.35s ease;
+    -moz-transition: width 0.35s ease;
+    -o-transition: width 0.35s ease;
+    transition: width 0.35s ease;
+}
+
 

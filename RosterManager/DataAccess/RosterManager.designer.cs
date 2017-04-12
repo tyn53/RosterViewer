@@ -36,15 +36,15 @@ namespace Gmi.RosterManager.DataAccess
     partial void InsertEntityType(EntityType instance);
     partial void UpdateEntityType(EntityType instance);
     partial void DeleteEntityType(EntityType instance);
-    partial void InsertImage(Image instance);
-    partial void UpdateImage(Image instance);
-    partial void DeleteImage(Image instance);
     partial void InsertPlayer(Player instance);
     partial void UpdatePlayer(Player instance);
     partial void DeletePlayer(Player instance);
     partial void InsertStat(Stat instance);
     partial void UpdateStat(Stat instance);
     partial void DeleteStat(Stat instance);
+    partial void InsertImage(Image instance);
+    partial void UpdateImage(Image instance);
+    partial void DeleteImage(Image instance);
     #endregion
 		
 		public RosterManagerDataContext() : 
@@ -93,14 +93,6 @@ namespace Gmi.RosterManager.DataAccess
 			}
 		}
 		
-		public System.Data.Linq.Table<Image> Images
-		{
-			get
-			{
-				return this.GetTable<Image>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Player> Players
 		{
 			get
@@ -114,6 +106,14 @@ namespace Gmi.RosterManager.DataAccess
 			get
 			{
 				return this.GetTable<Stat>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Image> Images
+		{
+			get
+			{
+				return this.GetTable<Image>();
 			}
 		}
 	}
@@ -439,172 +439,6 @@ namespace Gmi.RosterManager.DataAccess
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Image")]
-	public partial class Image : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _imageId;
-		
-		private string _imageFileName;
-		
-		private System.Data.Linq.Binary _imageData;
-		
-		private EntitySet<Team> _Teams;
-		
-		private EntitySet<Player> _Players;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnimageIdChanging(int value);
-    partial void OnimageIdChanged();
-    partial void OnimageFileNameChanging(string value);
-    partial void OnimageFileNameChanged();
-    partial void OnimageDataChanging(System.Data.Linq.Binary value);
-    partial void OnimageDataChanged();
-    #endregion
-		
-		public Image()
-		{
-			this._Teams = new EntitySet<Team>(new Action<Team>(this.attach_Teams), new Action<Team>(this.detach_Teams));
-			this._Players = new EntitySet<Player>(new Action<Player>(this.attach_Players), new Action<Player>(this.detach_Players));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_imageId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int imageId
-		{
-			get
-			{
-				return this._imageId;
-			}
-			set
-			{
-				if ((this._imageId != value))
-				{
-					this.OnimageIdChanging(value);
-					this.SendPropertyChanging();
-					this._imageId = value;
-					this.SendPropertyChanged("imageId");
-					this.OnimageIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_imageFileName", DbType="NVarChar(128)")]
-		public string imageFileName
-		{
-			get
-			{
-				return this._imageFileName;
-			}
-			set
-			{
-				if ((this._imageFileName != value))
-				{
-					this.OnimageFileNameChanging(value);
-					this.SendPropertyChanging();
-					this._imageFileName = value;
-					this.SendPropertyChanged("imageFileName");
-					this.OnimageFileNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_imageData", DbType="VarBinary(MAX) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public System.Data.Linq.Binary imageData
-		{
-			get
-			{
-				return this._imageData;
-			}
-			set
-			{
-				if ((this._imageData != value))
-				{
-					this.OnimageDataChanging(value);
-					this.SendPropertyChanging();
-					this._imageData = value;
-					this.SendPropertyChanged("imageData");
-					this.OnimageDataChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Image_Team", Storage="_Teams", ThisKey="imageId", OtherKey="imageId")]
-		public EntitySet<Team> Teams
-		{
-			get
-			{
-				return this._Teams;
-			}
-			set
-			{
-				this._Teams.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Image_Player", Storage="_Players", ThisKey="imageId", OtherKey="imageId")]
-		public EntitySet<Player> Players
-		{
-			get
-			{
-				return this._Players;
-			}
-			set
-			{
-				this._Players.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Teams(Team entity)
-		{
-			this.SendPropertyChanging();
-			entity.Image = this;
-		}
-		
-		private void detach_Teams(Team entity)
-		{
-			this.SendPropertyChanging();
-			entity.Image = null;
-		}
-		
-		private void attach_Players(Player entity)
-		{
-			this.SendPropertyChanging();
-			entity.Image = this;
-		}
-		
-		private void detach_Players(Player entity)
-		{
-			this.SendPropertyChanging();
-			entity.Image = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Player")]
 	public partial class Player : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -625,9 +459,9 @@ namespace Gmi.RosterManager.DataAccess
 		
 		private EntitySet<Stat> _Stats;
 		
-		private EntityRef<Image> _Image;
-		
 		private EntityRef<Team> _Team;
+		
+		private EntityRef<Image> _Image;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -650,8 +484,8 @@ namespace Gmi.RosterManager.DataAccess
 		public Player()
 		{
 			this._Stats = new EntitySet<Stat>(new Action<Stat>(this.attach_Stats), new Action<Stat>(this.detach_Stats));
-			this._Image = default(EntityRef<Image>);
 			this._Team = default(EntityRef<Team>);
+			this._Image = default(EntityRef<Image>);
 			OnCreated();
 		}
 		
@@ -796,40 +630,6 @@ namespace Gmi.RosterManager.DataAccess
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Image_Player", Storage="_Image", ThisKey="imageId", OtherKey="imageId", IsForeignKey=true)]
-		public Image Image
-		{
-			get
-			{
-				return this._Image.Entity;
-			}
-			set
-			{
-				Image previousValue = this._Image.Entity;
-				if (((previousValue != value) 
-							|| (this._Image.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Image.Entity = null;
-						previousValue.Players.Remove(this);
-					}
-					this._Image.Entity = value;
-					if ((value != null))
-					{
-						value.Players.Add(this);
-						this._imageId = value.imageId;
-					}
-					else
-					{
-						this._imageId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Image");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_Player", Storage="_Team", ThisKey="teamId", OtherKey="teamId", IsForeignKey=true)]
 		public Team Team
 		{
@@ -860,6 +660,40 @@ namespace Gmi.RosterManager.DataAccess
 						this._teamId = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Team");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Image_Player", Storage="_Image", ThisKey="imageId", OtherKey="imageId", IsForeignKey=true)]
+		public Image Image
+		{
+			get
+			{
+				return this._Image.Entity;
+			}
+			set
+			{
+				Image previousValue = this._Image.Entity;
+				if (((previousValue != value) 
+							|| (this._Image.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Image.Entity = null;
+						previousValue.Players.Remove(this);
+					}
+					this._Image.Entity = value;
+					if ((value != null))
+					{
+						value.Players.Add(this);
+						this._imageId = value.imageId;
+					}
+					else
+					{
+						this._imageId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Image");
 				}
 			}
 		}
@@ -1171,6 +1005,196 @@ namespace Gmi.RosterManager.DataAccess
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Image")]
+	public partial class Image : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _imageId;
+		
+		private string _imageFileName;
+		
+		private System.Data.Linq.Binary _imageContent;
+		
+		private string _imageContentType;
+		
+		private EntitySet<Team> _Teams;
+		
+		private EntitySet<Player> _Players;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnimageIdChanging(int value);
+    partial void OnimageIdChanged();
+    partial void OnimageFileNameChanging(string value);
+    partial void OnimageFileNameChanged();
+    partial void OnimageContentChanging(System.Data.Linq.Binary value);
+    partial void OnimageContentChanged();
+    partial void OnimageContentTypeChanging(string value);
+    partial void OnimageContentTypeChanged();
+    #endregion
+		
+		public Image()
+		{
+			this._Teams = new EntitySet<Team>(new Action<Team>(this.attach_Teams), new Action<Team>(this.detach_Teams));
+			this._Players = new EntitySet<Player>(new Action<Player>(this.attach_Players), new Action<Player>(this.detach_Players));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_imageId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int imageId
+		{
+			get
+			{
+				return this._imageId;
+			}
+			set
+			{
+				if ((this._imageId != value))
+				{
+					this.OnimageIdChanging(value);
+					this.SendPropertyChanging();
+					this._imageId = value;
+					this.SendPropertyChanged("imageId");
+					this.OnimageIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_imageFileName", DbType="NVarChar(128)")]
+		public string imageFileName
+		{
+			get
+			{
+				return this._imageFileName;
+			}
+			set
+			{
+				if ((this._imageFileName != value))
+				{
+					this.OnimageFileNameChanging(value);
+					this.SendPropertyChanging();
+					this._imageFileName = value;
+					this.SendPropertyChanged("imageFileName");
+					this.OnimageFileNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_imageContent", DbType="VarBinary(MAX) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary imageContent
+		{
+			get
+			{
+				return this._imageContent;
+			}
+			set
+			{
+				if ((this._imageContent != value))
+				{
+					this.OnimageContentChanging(value);
+					this.SendPropertyChanging();
+					this._imageContent = value;
+					this.SendPropertyChanged("imageContent");
+					this.OnimageContentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_imageContentType", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string imageContentType
+		{
+			get
+			{
+				return this._imageContentType;
+			}
+			set
+			{
+				if ((this._imageContentType != value))
+				{
+					this.OnimageContentTypeChanging(value);
+					this.SendPropertyChanging();
+					this._imageContentType = value;
+					this.SendPropertyChanged("imageContentType");
+					this.OnimageContentTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Image_Team", Storage="_Teams", ThisKey="imageId", OtherKey="imageId")]
+		public EntitySet<Team> Teams
+		{
+			get
+			{
+				return this._Teams;
+			}
+			set
+			{
+				this._Teams.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Image_Player", Storage="_Players", ThisKey="imageId", OtherKey="imageId")]
+		public EntitySet<Player> Players
+		{
+			get
+			{
+				return this._Players;
+			}
+			set
+			{
+				this._Players.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Teams(Team entity)
+		{
+			this.SendPropertyChanging();
+			entity.Image = this;
+		}
+		
+		private void detach_Teams(Team entity)
+		{
+			this.SendPropertyChanging();
+			entity.Image = null;
+		}
+		
+		private void attach_Players(Player entity)
+		{
+			this.SendPropertyChanging();
+			entity.Image = this;
+		}
+		
+		private void detach_Players(Player entity)
+		{
+			this.SendPropertyChanging();
+			entity.Image = null;
 		}
 	}
 }

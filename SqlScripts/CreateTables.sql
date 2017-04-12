@@ -41,7 +41,6 @@ CREATE TABLE Stat (statId INT NOT NULL IDENTITY(1,1),
 				   statName NVARCHAR(16) NOT NULL,
 				   statValue NVARCHAR(17) NOT NULL,
 				   CONSTRAINT PK_Stat PRIMARY KEY (statId),
-				   CONSTRAINT IX_Stat UNIQUE (statName),
 				   CONSTRAINT FK_Stat_EntityType FOREIGN KEY (entityTypeId) REFERENCES EntityType(entityTypeId));
 
 

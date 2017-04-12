@@ -1,48 +1,81 @@
-﻿using Gmi.RosterManager.DataAccess;
-using Gmi.RosterManager.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Gmi.RosterManager.DataAccess;
+using Gmi.RosterManager.Models;
+using System.IO;
 
 namespace Gmi.RosterManager.Controllers
 {
     public class TeamController : Controller
     {
-        public ActionResult Team()
+        // GET: Team
+        public ActionResult Index()
+        {
+            return Get();
+        }
+
+        public ActionResult Get()
+        {
+            var teamRepo = new TeamRepository();
+            var teams = new List<TeamModel>();
+            foreach (var team in teamRepo.GetAllTeams())
+            {
+                teams.Add(ConvertToViewModel(team));
+            }
+
+
+            return View(teams);
+        }
+
+        public ActionResult Details(int id)
+        {
+            var teamRepo = new TeamRepository();
+            var dbResult = teamRepo.GetTeamByID(id);
+
+            return View(ConvertToViewModel(dbResult));
+        }
+
+        public ActionResult Add()
         {
             return View();
         }
 
-        [Route("Add")]
-        [HttpPost]
-        public ActionResult Add(TeamModel model)
+        public ActionResult Edit(int id)
+        {
+            var teamRepo = new TeamRepository();
+            var dbResult = teamRepo.GetTeamByID(id);
+            return View(ConvertToViewModel(dbResult));
+        }
+
+        public ActionResult Delete(int id)
         {
             var teamRepo = new TeamRepository();
 
-            HttpPostedFileBase file = Request.Files["ImageData"];
-            model.Banner = ConvertToBytes(file);
-
-            teamRepo.CreateTeam(model);
-
-            return RedirectToAction("Index", "Teams");
+            teamRepo.DeleteTeam(id);
+            return RedirectToAction("Index", "Team");
         }
 
-        public ActionResult GetImageById(int id)
+        [HttpPost]
+        public ActionResult Create(TeamModel model)
         {
-            var imageRepo = new ImageRepository();
-            byte[] imageData = imageRepo.getImageById(id);
+            var teamRepo = new TeamRepository();
 
-            if (imageData != null)
-            {
-                return File(imageData, "image/png");
-            }
-            else
-            {
-                return null;
-            }
+            teamRepo.CreateTeam(ConvertToDbModel(model));
+
+            return RedirectToAction("Index", "Team");
+        }
+
+        [HttpPost]
+        public ActionResult Update(TeamModel model)
+        {
+            var teamRepo = new TeamRepository();
+
+            teamRepo.UpdateTeam(ConvertToDbModel(model));
+
+            return RedirectToAction("Details", "Team", new { id = model.ID });
         }
 
         public static TeamModel ConvertToViewModel(Team dbTeam)
@@ -51,16 +84,47 @@ namespace Gmi.RosterManager.Controllers
             {
                 ID = dbTeam.teamId,
                 Name = dbTeam.teamName,
-                Banner = dbTeam.Image?.imageData.ToArray(),
+                BannerImageId = (dbTeam.imageId == null ? -1 : (int)dbTeam.imageId),
             };
+
+            foreach(var player in dbTeam.Players)
+            {
+                team.Players.Add(PlayerController.ConvertToViewModel(player));
+            }
+
+            foreach(var stat in dbTeam.Stats)
+            {
+                team.Stats.Add(StatController.ConvertToViewModel(stat));
+            }
+
             return team;
         }
-        public static byte[] ConvertToBytes(HttpPostedFileBase image)
+
+        public static Team ConvertToDbModel(TeamModel team)
         {
-            byte[] imageData;
-            var reader = new BinaryReader(image.InputStream);
-            imageData = reader.ReadBytes((int)image.ContentLength);
-            return imageData;
+            var dbTeam = new Team()
+            {
+                teamId = team.ID,
+                teamName = team.Name,
+                Image = new Image()
+                {
+                    imageFileName = team.BannerImageFile.FileName,
+                    imageContent = ImageController.ConvertToBytes(team.BannerImageFile),
+                    imageContentType = team.BannerImageFile.ContentType
+                },
+            };
+
+            foreach(var player in team.Players)
+            {
+                dbTeam.Players.Add(PlayerController.ConvertToDbModel(player));
+            }
+            
+            foreach(var stat in team.Stats)
+            {
+                dbTeam.Stats.Add(StatController.ConvertToDbModel(stat));
+            }
+
+            return dbTeam;
         }
     }
 }

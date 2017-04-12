@@ -1,0 +1,48 @@
+﻿@model List<Gmi.RosterManager.Models.PlayerModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div style="padding-top:20px">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a data-toggle="collapse" href="#playerPanel">
+                <h4 class="panel-title">Players</h4>
+            </a>
+        </div>
+        <div id="playerPanel" class="panel-collapse">
+            <div class="panel-body">
+                @foreach (var item in Model)
+            {
+                    <div class="col-md-4 entityContainer">
+                        <Center>
+                            <div class="entityBox">
+
+                                <a href="@Url.Action("Details","Player", new { id = item.PlayerID })">
+                                    <img class="banner" src="@Url.Action("Image", "Image", new {id = item.AvatarImageID})" />
+                                </a>
+                            </div>
+                            <label class="layeredLabel">@Html.DisplayFor(modelItem => item.FirstName) &quot;@Html.DisplayFor(modelItem => item.ScreenName)&quot; @Html.DisplayFor(modelItem => item.LastName)</label>
+                        </Center>
+                    </div>
+                }
+                <div class="col-md-4 entityContainer">
+                    <Center>
+                        <div class="entityBox">
+
+                            <a href="@Url.Action("Add","Player")">
+                                <div class="upload" style="height:200px; width:200px">
+                                    <i class="glyphicon glyphicon-upload "></i>
+                                </div>
+                            </a>
+                            <label class="layeredLabel">Add New Player</label>
+                        </div>
+                        <label class="layeredLabel">Add New Player</label>
+                    </Center>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
