@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Gmi.RosterManager.DataAccess
 {
-    public class ImageRepository
+    public class ImageRepository : IImageRepository
     {
 
         public ImageRepository()
@@ -36,5 +36,11 @@ namespace Gmi.RosterManager.DataAccess
             }
         }
         
+    }
+
+    public interface IImageRepository
+    {
+        Image GetImageById(int imageId);
+        void DeleteImage(int imageId);
     }
 }

@@ -10,12 +10,17 @@ namespace Gmi.RosterManager.Controllers
 {
     public class ImageController : Controller
     {
-        // GET: Image
+        private readonly IImageRepository imageRepo;
+
+        public ImageController(IImageRepository iRepo)
+        {
+            this.imageRepo = iRepo;
+        }
+        
         public ActionResult Image(int id)
         {
             if (id > 0)
             {
-                var imageRepo = new ImageRepository();
                 var image = imageRepo.GetImageById(id);
                 return File(image.imageContent.ToArray(), image.imageContentType);
             }

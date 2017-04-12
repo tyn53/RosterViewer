@@ -2,17 +2,16 @@
 using Gmi.RosterManager.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace Gmi.RosterManager.DataAccess
 {
-    public class TeamRepository
+    public class TeamRepository : ITeamRepository
     {
         public TeamRepository()
         {
         }
 
-        public IEnumerable<Team> GetAllTeams()
+        public IEnumerable<Team> GetTeams()
         {
             var dbContext = new RosterManagerDataContext();
 
@@ -36,7 +35,7 @@ namespace Gmi.RosterManager.DataAccess
             return result;
         }
 
-        public void CreateTeam(Team team)
+        public void AddTeam(Team team)
         {
             using (var dbContext = new RosterManagerDataContext())
             {                
@@ -46,7 +45,7 @@ namespace Gmi.RosterManager.DataAccess
             }
         }
 
-        public void UpdateTeam(TeamModel team)
+        public void EditTeam(TeamModel team)
         {
             using (var dbContext = new RosterManagerDataContext())
             {
@@ -98,9 +97,15 @@ namespace Gmi.RosterManager.DataAccess
                 dbContext.SubmitChanges();
             }
         }
+    }
 
-
-
+    public interface ITeamRepository
+    {
+        IEnumerable<Team> GetTeams();
+        Team GetTeamByID(int id);
+        void AddTeam(Team team);
+        void EditTeam(TeamModel team);
+        void DeleteTeam(int id);
 
     }
 }

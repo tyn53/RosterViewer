@@ -11,6 +11,13 @@ namespace Gmi.RosterManager.Controllers
 {
     public class TeamController : Controller
     {
+        private readonly ITeamRepository teamRepo;
+
+        public TeamController(ITeamRepository repo)
+        {
+            teamRepo = repo;
+        }
+
         // GET: Team
         public ActionResult Index()
         {
@@ -19,9 +26,8 @@ namespace Gmi.RosterManager.Controllers
 
         public ActionResult Get()
         {
-            var teamRepo = new TeamRepository();
             var teams = new List<TeamModel>();
-            foreach (var team in teamRepo.GetAllTeams())
+            foreach (var team in teamRepo.GetTeams())
             {
                 teams.Add(ConvertToViewModel(team));
             }
@@ -32,7 +38,6 @@ namespace Gmi.RosterManager.Controllers
 
         public ActionResult Details(int id)
         {
-            var teamRepo = new TeamRepository();
             var dbResult = teamRepo.GetTeamByID(id);
 
             return View(ConvertToViewModel(dbResult));
@@ -45,15 +50,12 @@ namespace Gmi.RosterManager.Controllers
 
         public ActionResult Edit(int id)
         {
-            var teamRepo = new TeamRepository();
             var dbResult = teamRepo.GetTeamByID(id);
             return View(ConvertToViewModel(dbResult));
         }
 
         public ActionResult Delete(int id)
         {
-            var teamRepo = new TeamRepository();
-
             teamRepo.DeleteTeam(id);
             return RedirectToAction("Index", "Team");
         }
@@ -61,9 +63,8 @@ namespace Gmi.RosterManager.Controllers
         [HttpPost]
         public ActionResult Create(TeamModel model)
         {
-            var teamRepo = new TeamRepository();
 
-            teamRepo.CreateTeam(ConvertToDbModel(model));
+            teamRepo.AddTeam(ConvertToDbModel(model));
 
             return RedirectToAction("Index", "Team");
         }
@@ -71,9 +72,7 @@ namespace Gmi.RosterManager.Controllers
         [HttpPost]
         public ActionResult Update(TeamModel model)
         {
-            var teamRepo = new TeamRepository();
-
-            teamRepo.UpdateTeam(model);
+            teamRepo.EditTeam(model);
 
             return RedirectToAction("Details", "Team", new { id = model.TeamId });
         }

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Gmi.RosterManager.DataAccess
 {
-    public class StatRepository
+    public class StatRepository : IStatRepository
     {
 
         public IEnumerable<Stat> GetStatsByEntity(int entityId)
@@ -69,5 +69,14 @@ namespace Gmi.RosterManager.DataAccess
                 dbContext.SubmitChanges();
             }
         }
+    }
+
+    public interface IStatRepository
+    {
+        IEnumerable<Stat> GetStatsByEntity(int entityId);
+        Stat GetStatById(int id);
+        void AddStat(Stat stat);
+        void EditStat(StatModel stat);
+        void DeleteStat(int statId);
     }
 }

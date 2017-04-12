@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Gmi.RosterManager.DataAccess
 {
-    public class PlayerRepository
+    public class PlayerRepository : IPlayerRepository
     {
         public IEnumerable<Player> GetPlayers()
         {
@@ -89,5 +89,13 @@ namespace Gmi.RosterManager.DataAccess
                 dbContext.SubmitChanges();
             }
         }
+    }
+    public interface IPlayerRepository
+    {
+        IEnumerable<Player> GetPlayers();
+        Player GetPlayerById(int id);
+        void AddPlayer(Player player);
+        void EditPlayer(PlayerModel player);
+        void DeletePlayer(int playerId);
     }
 }

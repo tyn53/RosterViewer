@@ -10,6 +10,12 @@ namespace Gmi.RosterManager.Controllers
 {
     public class StatController : Controller
     {
+        private readonly IStatRepository statRepo;
+        public StatController(IStatRepository sRepo)
+        {
+            this.statRepo = sRepo;
+        }
+
         public ActionResult Add(int entityId, Models.EntityType type)
         {
             var stat = new StatModel();
@@ -20,7 +26,6 @@ namespace Gmi.RosterManager.Controllers
 
         public ActionResult Edit(int statId)
         {
-            var statRepo = new StatRepository();
             var stat = statRepo.GetStatById(statId);
 
             return View(ConvertToViewModel(stat));
@@ -28,8 +33,6 @@ namespace Gmi.RosterManager.Controllers
 
         public ActionResult Delete(int statId)
         {
-            
-            var statRepo = new StatRepository();
             var tempStat = statRepo.GetStatById(statId);
             statRepo.DeleteStat(statId);
             return RedirectToAction("Details", ConvertToViewModel(tempStat).EntityType.ToString(), new { ID = ConvertToViewModel(tempStat).EntityId });
@@ -38,7 +41,6 @@ namespace Gmi.RosterManager.Controllers
         [HttpPost]
         public ActionResult Create(StatModel stat)
         {
-            var statRepo = new StatRepository();
             if (stat.Value == null)
                 stat.Value = string.Empty;
             
@@ -50,8 +52,6 @@ namespace Gmi.RosterManager.Controllers
         [HttpPost]
         public ActionResult Update(StatModel stat)
         {
-            var statRepo = new StatRepository();
-
             statRepo.EditStat(stat);
 
             return RedirectToAction("Details", stat.EntityType.ToString(), new { ID = stat.EntityId });

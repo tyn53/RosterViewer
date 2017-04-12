@@ -2,7 +2,8 @@
     padding-top: 50px;
     padding-bottom: 20px;
     font-family: 'Roboto', sans-serif;
-    background-color: #E0E1E1;
+    background-color: #35343c;
+    color: #F5F5F5;
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
@@ -85,7 +86,7 @@ textarea {
     bottom: 17px;
     left: 17px;
     background-color: #EEE;
-    background-color: rgba(256,256,256,.7);
+    background-color: rgba(256,256,256,.9);
     font-size: 20pt;
     width: Calc(100% - 34px);
 }
@@ -104,7 +105,9 @@ a {
         text-decoration: underline;
     }
 
-
+.panel {
+    color: #333333;
+}
 
 
 .title {
@@ -120,10 +123,3 @@ a:hover, a:visited, a:link, a:active {
     text-decoration: none;
 }
 
-.collapse.width {
-    height: auto;
-    -webkit-transition: width 0.35s ease;
-    -moz-transition: width 0.35s ease;
-    -o-transition: width 0.35s ease;
-    transition: width 0.35s ease;
-}

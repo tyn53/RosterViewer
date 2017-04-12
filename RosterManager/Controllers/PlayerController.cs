@@ -10,7 +10,15 @@ namespace Gmi.RosterManager.Controllers
 {
     public class PlayerController : Controller
     {
-        // GET: Player
+        private readonly IPlayerRepository playerRepo;
+        private readonly ITeamRepository teamRepo;
+
+        public PlayerController(IPlayerRepository pRepo, ITeamRepository tRepo)
+        {
+            playerRepo = pRepo;
+            teamRepo = tRepo;
+        }
+
         public ActionResult Index()
         {
             return Get();
@@ -18,7 +26,6 @@ namespace Gmi.RosterManager.Controllers
 
         public ActionResult Get()
         {
-            var playerRepo = new PlayerRepository();
             var players = new List<PlayerModel>();
           
             foreach (var player in playerRepo.GetPlayers())
@@ -32,8 +39,7 @@ namespace Gmi.RosterManager.Controllers
 
         public ActionResult Add()
         {
-            var teamRepo = new TeamRepository();
-            var teams = teamRepo.GetAllTeams();
+            var teams = teamRepo.GetTeams();
 
             var teamList = new List<SelectListItem>();
 
@@ -54,8 +60,7 @@ namespace Gmi.RosterManager.Controllers
 
         public ActionResult Edit(int id)
         {
-            var teamRepo = new TeamRepository();
-            var teams = teamRepo.GetAllTeams();
+            var teams = teamRepo.GetTeams();
 
             var teamList = new List<SelectListItem>();
 
@@ -69,7 +74,7 @@ namespace Gmi.RosterManager.Controllers
             }
 
             ViewData["Teams"] = teamList;
-            var playerRepo = new PlayerRepository();
+
             var player = playerRepo.GetPlayerById(id);
 
             return View(ConvertToViewModel(player));
@@ -77,7 +82,6 @@ namespace Gmi.RosterManager.Controllers
 
         public ActionResult Details(int id)
         {
-            var playerRepo = new PlayerRepository();
             var player = playerRepo.GetPlayerById(id);
 
             return View(ConvertToViewModel(player));
@@ -85,7 +89,6 @@ namespace Gmi.RosterManager.Controllers
 
         public ActionResult Delete(int id)
         {
-            var playerRepo = new PlayerRepository();
             playerRepo.DeletePlayer(id);
             return RedirectToAction("Index", "Player");
         }
@@ -95,7 +98,6 @@ namespace Gmi.RosterManager.Controllers
         {
             if (ImageController.ValidateImage(player.AvatarImageFile))
             {
-                var playerRepo = new PlayerRepository();
 
                 playerRepo.EditPlayer(player);
 
@@ -114,8 +116,6 @@ namespace Gmi.RosterManager.Controllers
         {
             if (ImageController.ValidateImage(player.AvatarImageFile))
             {
-                var playerRepo = new PlayerRepository();
-
                 playerRepo.AddPlayer(ConvertToDbModel(player));
 
                 return RedirectToAction("Details", "Team", new { ID = player.TeamId });
