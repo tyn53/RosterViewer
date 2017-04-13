@@ -1,7 +1,7 @@
 ﻿@model System.Web.Mvc.HandleErrorInfo
 
 @{
-    ViewBag.Title = "DbError";
+    ViewBag.Title = "Error";
 }
 
 <!DOCTYPE html>
@@ -12,14 +12,13 @@
 </head>
 <body>
     <hgroup>
-        <h1>Error.</h1>
         <h2>An error occurred while processing your request.</h2>
+        <h2>@Model.Exception.Message</h2>
         <h3>Controller: @Model.ControllerName  </h3>
         <h3>Action: @Model.ActionName</h3>
     </hgroup>
-    <hr />
     <p>
-        @Model.Exception.Message
+
     </p>
 </body>
 </html>

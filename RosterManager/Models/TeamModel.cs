@@ -6,6 +6,9 @@ using System.Web;
 
 namespace Gmi.RosterManager.Models
 {
+    /// <summary>
+    /// Team View Model
+    /// </summary>
     public class TeamModel
     {
         private List<PlayerModel> players;

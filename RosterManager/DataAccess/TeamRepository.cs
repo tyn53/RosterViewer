@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace Gmi.RosterManager.DataAccess
 {
+    /// <summary>
+    /// Data access repository for team objects.
+    /// </summary>
     public class TeamRepository : ITeamRepository
     {
         public TeamRepository()
@@ -99,6 +102,9 @@ namespace Gmi.RosterManager.DataAccess
         }
     }
 
+    /// <summary>
+    /// Team repository interface.
+    /// </summary>
     public interface ITeamRepository
     {
         IEnumerable<Team> GetTeams();

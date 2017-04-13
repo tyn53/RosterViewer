@@ -6,6 +6,9 @@ using System.Web;
 
 namespace Gmi.RosterManager.DataAccess
 {
+    /// <summary>
+    /// Data access repository for statistic objects.
+    /// </summary>
     public class StatRepository : IStatRepository
     {
 
@@ -71,6 +74,9 @@ namespace Gmi.RosterManager.DataAccess
         }
     }
 
+    /// <summary>
+    /// Stat repository interface
+    /// </summary>
     public interface IStatRepository
     {
         IEnumerable<Stat> GetStatsByEntity(int entityId);

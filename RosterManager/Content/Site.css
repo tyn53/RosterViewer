@@ -1,4 +1,6 @@
-﻿body {
+﻿@font-face { font-family: AmericanCaptain; src: url('../fonts/American Captain.ttf');}
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
     font-family: 'Roboto', sans-serif;
@@ -6,12 +8,14 @@
     color: #F5F5F5;
 }
 
+body a {
+    color:#F5F5F5;
+}
+
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: 'Roboto', sans-serif;
     font-weight: 900;
 }
-
-
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -50,22 +54,58 @@ textarea {
     overflow: hidden;
 }
 
+.coverContainer {
+    padding-bottom: 20px;
+    margin-top: -10px;
+    width: 100%;
+    
+}
+
+.coverBox {
+    background-color: #EEE;
+    border-radius: 10px;
+    height: 150px;
+    margin: auto;
+    overflow: hidden;
+}
+
+.cover {
+    margin-top:-50px;
+    margin-left: -10%;
+    width: 120%;
+    height: auto;
+    filter:blur(10px)
+}
+
+h1.coverTitle {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    color: #FFFFFE;
+    font-family: AmericanCaptain, serif;
+    font-size: 50pt;
+    letter-spacing: 3px;
+}
+h3.coverTitle {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    color: #FFFFFE;
+    font-family: AmericanCaptain, serif;
+    letter-spacing: 2px;
+}
+
+
 .banner {
     height: 100%;
     width: auto;
     margin: 0 -100%;
-    
 }
 
 .avatar {
     height: 100%;
     width: auto;
     margin: 0 -100%;
-}
-
-.highlight:hover {
-    -webkit-filter: none;
-    filter: none;
 }
 
 .inline {
@@ -91,7 +131,7 @@ textarea {
     width: Calc(100% - 34px);
 }
 
-a {
+ .panel a {
     color: #2C3539;
 }
 

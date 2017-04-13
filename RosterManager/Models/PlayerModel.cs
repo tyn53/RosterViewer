@@ -5,6 +5,9 @@ using System.Web;
 
 namespace Gmi.RosterManager.Models
 {
+    /// <summary>
+    /// Player view model.
+    /// </summary>
     public class PlayerModel
     {
         private List<StatModel> stats;

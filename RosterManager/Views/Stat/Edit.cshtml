@@ -1,14 +1,14 @@
 ﻿@model Gmi.RosterManager.Models.StatModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div style="padding-top:20px">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4 class="panel-title">Edit</h4>
+            <h4 class="panel-title">Edit Details</h4>
         </div>
         <div class="panel-body">
             @using (Html.BeginForm("Update", "Stat", FormMethod.Post, new { encType = "multipart/form-data" }))

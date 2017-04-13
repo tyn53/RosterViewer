@@ -9,6 +9,9 @@ using System.IO;
 
 namespace Gmi.RosterManager.Controllers
 {
+    /// <summary>
+    /// MVC Controller for team actions.
+    /// </summary>
     public class TeamController : Controller
     {
         private readonly ITeamRepository teamRepo;
@@ -77,6 +80,22 @@ namespace Gmi.RosterManager.Controllers
             return RedirectToAction("Details", "Team", new { id = model.TeamId });
         }
 
+        public List<SelectListItem> getTeamList()
+        {
+            var teams = teamRepo.GetTeams();
+
+            var teamList = new List<SelectListItem>();
+
+            foreach (var team in teams)
+            {
+                teamList.Add(new SelectListItem()
+                {
+                    Text = team.teamName,
+                    Value = team.teamId.ToString(),
+                });
+            }
+            return teamList;
+        }
         public static TeamModel ConvertToViewModel(Team dbTeam)
         {
             var team = new TeamModel()
@@ -86,12 +105,12 @@ namespace Gmi.RosterManager.Controllers
                 BannerImageId = (dbTeam.imageId == null ? -1 : (int)dbTeam.imageId),
             };
 
-            foreach(var player in dbTeam.Players)
+            foreach (var player in dbTeam.Players)
             {
                 team.Players.Add(PlayerController.ConvertToViewModel(player));
             }
 
-            foreach(var stat in dbTeam.Stats)
+            foreach (var stat in dbTeam.Stats)
             {
                 team.Stats.Add(StatController.ConvertToViewModel(stat));
             }
@@ -113,12 +132,12 @@ namespace Gmi.RosterManager.Controllers
                 },
             };
 
-            foreach(var player in team.Players)
+            foreach (var player in team.Players)
             {
                 dbTeam.Players.Add(PlayerController.ConvertToDbModel(player));
             }
-            
-            foreach(var stat in team.Stats)
+
+            foreach (var stat in team.Stats)
             {
                 dbTeam.Stats.Add(StatController.ConvertToDbModel(stat));
             }

@@ -8,6 +8,9 @@ using System.IO;
 
 namespace Gmi.RosterManager.Controllers
 {
+    /// <summary>
+    /// MVC Controller for Image actions.
+    /// </summary>
     public class ImageController : Controller
     {
         private readonly IImageRepository imageRepo;
@@ -30,18 +33,23 @@ namespace Gmi.RosterManager.Controllers
             }
         }
 
-        public static bool ValidateImage (HttpPostedFileBase image)
+        public static void ValidateImage (HttpPostedFileBase image)
         {
-            if (image?.ContentLength > 4194304)
-                return false;
+            bool valid = true;
+            if (image != null)
+            {
+                if (image.ContentLength > 4194304)
+                    valid = false;
 
-            if (image?.ContentType != "image/jpeg" &&
-                image?.ContentType != "image/png" &&
-                image?.ContentType != "image/gif" &&
-                image?.ContentType != "image/svg+xml")
-                return false;
+                if (image?.ContentType != "image/jpeg" &&
+                    image?.ContentType != "image/png" &&
+                    image?.ContentType != "image/gif" &&
+                    image?.ContentType != "image/svg+xml")
+                    valid = false;
             
-            return true;
+            }
+            if (!valid)
+                throw new ArgumentException("Invalid image. Images must be less than 4MB and a valid image file.");
 
         }
 

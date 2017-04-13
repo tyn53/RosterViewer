@@ -184,9 +184,11 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\clip.svg" />
     <Content Include="Content\Images\default.jpg" />
     <Content Include="Content\Images\front.jpg" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\american_captain.PNG" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -203,6 +205,8 @@
     <None Include="DataAccess\RosterManager.dbml.layout">
       <DependentUpon>RosterManager.dbml</DependentUpon>
     </None>
+    <Content Include="fonts\American Captain.otf" />
+    <Content Include="fonts\American Captain.ttf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -235,7 +239,6 @@
     <Content Include="Views\Player\Details.cshtml" />
     <Content Include="Views\Stat\Add.cshtml" />
     <Content Include="Views\Stat\Edit.cshtml" />
-    <Content Include="Views\Shared\DbError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -6,6 +6,9 @@ using System.Web;
 
 namespace Gmi.RosterManager.DataAccess
 {
+    /// <summary>
+    /// Data access repositoy for image objects.
+    /// </summary>
     public class ImageRepository : IImageRepository
     {
 
@@ -38,6 +41,9 @@ namespace Gmi.RosterManager.DataAccess
         
     }
 
+    /// <summary>
+    /// Image repository interface.
+    /// </summary>
     public interface IImageRepository
     {
         Image GetImageById(int imageId);

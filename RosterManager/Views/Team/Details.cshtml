@@ -1,18 +1,18 @@
 ﻿@model Gmi.RosterManager.Models.TeamModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Team Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div style="padding-top:20px">
     <div class="panel panel-default">
         <div class="panel-heading">
-                <h4 class="panel-title no-underline inline">@Html.DisplayFor(model => model.Name) - Statistics</h4>
+                <h4 class="panel-title no-underline inline">@Html.DisplayFor(model => model.Name) - Team Details</h4>
             <div class="btn-group pull-right" style="margin-top:-8px; margin-right:-13px">
-                <button class="btn btn-default text-center" alt="Add Statistic" onclick="@("window.location.href='" + Url.Action("Add", "Stat", new { entityId = Model.TeamId, type = Gmi.RosterManager.Models.EntityType.Team }, null) + "'");"><i class="glyphicon glyphicon-plus" style="margin-top:2px"></i></button>
-                <button class="btn btn-default text-center" alt="Edit Team" onclick="@("window.location.href='" + Url.Action("Edit", "Team", new { id = Model.TeamId }, null) + "'");"><i class="glyphicon glyphicon-edit" style="margin-top:2px"></i></button>
-                <button class="btn btn-default text-center" alt="Delete Team" onclick="@("window.location.href='" + Url.Action("Delete", "Team", new { id = Model.TeamId }, null) + "'");"><i class="glyphicon glyphicon-trash" style="color:#C60000; margin-right:1px; margin-top:2px"></i></button>
+                <button class="btn btn-default text-center" title="Add Statistic" onclick="@("window.location.href='" + Url.Action("Add", "Stat", new { entityId = Model.TeamId, type = Gmi.RosterManager.Models.EntityType.Team }, null) + "'");"><i class="glyphicon glyphicon-plus" style="margin-top:2px"></i></button>
+                <button class="btn btn-default text-center" title="Edit Team" onclick="@("window.location.href='" + Url.Action("Edit", "Team", new { id = Model.TeamId }, null) + "'");"><i class="glyphicon glyphicon-edit" style="margin-top:2px"></i></button>
+                <button class="btn btn-default text-center" title="Delete Team" onclick="@("window.location.href='" + Url.Action("Delete", "Team", new { id = Model.TeamId }, null) + "'");"><i class="glyphicon glyphicon-trash" style="color:#C60000; margin-right:1px; margin-top:2px"></i></button>
             </div>
         </div>
         <div id="statPanel">
@@ -62,7 +62,7 @@
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4 class="panel-title">Players</h4>
+            <h4 class="panel-title">Team Roster</h4>
         </div>
         <div id="playerPanel">
             <div class="panel-body">
@@ -84,7 +84,7 @@
                     <Center>
                         <div class="entityBox">
 
-                            <a href="@Url.Action("Add","Player")">
+                            <a href="@Url.Action("Add","Player", new { id = Model.TeamId })">
                                 <div class="upload" style="height:200px; width:200px">
                                     <i class="glyphicon glyphicon-user"></i>
                                 </div>
@@ -100,8 +100,6 @@
 
 
     <div class="row">
-        <p>
-            @Html.ActionLink("Back to List", "Index")
-        </p>
+        @Html.ActionLink("Back to List", "Index")
     </div>
 </div>

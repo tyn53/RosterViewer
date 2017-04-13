@@ -8,72 +8,42 @@ using System.Web.Mvc;
 
 namespace Gmi.RosterManager.Controllers
 {
+    /// <summary>
+    /// MVC Controller for player actions.
+    /// </summary>
     public class PlayerController : Controller
     {
         private readonly IPlayerRepository playerRepo;
-        private readonly ITeamRepository teamRepo;
 
         public PlayerController(IPlayerRepository pRepo, ITeamRepository tRepo)
         {
             playerRepo = pRepo;
-            teamRepo = tRepo;
         }
 
         public ActionResult Index()
         {
-            return Get();
-        }
-
-        public ActionResult Get()
-        {
             var players = new List<PlayerModel>();
-          
+
             foreach (var player in playerRepo.GetPlayers())
             {
                 players.Add(ConvertToViewModel(player));
             }
-
-
+            
             return View(players);
         }
-
-        public ActionResult Add()
+    
+        public ActionResult Add(int teamId = 0)
         {
-            var teams = teamRepo.GetTeams();
-
-            var teamList = new List<SelectListItem>();
-
-            foreach (var team in teams)
-            {
-                teamList.Add(new SelectListItem()
-                {
-                    Text = team.teamName,
-                    Value = team.teamId.ToString(),
-                });
-            }
-
-            ViewData["Teams"] = teamList;
-
+            var teamController = new TeamController(new TeamRepository());
+            ViewData["Teams"] = teamController.getTeamList();
             
-            return View();
+            return View(new PlayerModel() { TeamId = teamId });
         }
 
         public ActionResult Edit(int id)
         {
-            var teams = teamRepo.GetTeams();
-
-            var teamList = new List<SelectListItem>();
-
-            foreach (var team in teams)
-            {
-                teamList.Add(new SelectListItem()
-                {
-                    Text = team.teamName,
-                    Value = team.teamId.ToString(),
-                });
-            }
-
-            ViewData["Teams"] = teamList;
+            var teamController = new TeamController(new TeamRepository());
+            ViewData["Teams"] = teamController.getTeamList();
 
             var player = playerRepo.GetPlayerById(id);
 
@@ -96,36 +66,22 @@ namespace Gmi.RosterManager.Controllers
         [HttpPost]
         public ActionResult Update(PlayerModel player)
         {
-            if (ImageController.ValidateImage(player.AvatarImageFile))
-            {
+            ImageController.ValidateImage(player.AvatarImageFile);
+            
+            playerRepo.EditPlayer(player);
 
-                playerRepo.EditPlayer(player);
-
-                return RedirectToAction("Details", "Team", new { ID = player.TeamId });
-            }
-            else
-            {
-                ViewBag.Error = "Invalid image. Image must be less than 4MB and a .jpg, .gif, .png or .svg";
-                return RedirectToAction("Add", "Player");
-            }
+            return RedirectToAction("Details", "Team", new { ID = player.TeamId });
 
         }
 
         [HttpPost]
         public ActionResult Create(PlayerModel player)
         {
-            if (ImageController.ValidateImage(player.AvatarImageFile))
-            {
-                playerRepo.AddPlayer(ConvertToDbModel(player));
+            ImageController.ValidateImage(player.AvatarImageFile);
+            
+            playerRepo.AddPlayer(ConvertToDbModel(player));
 
-                return RedirectToAction("Details", "Team", new { ID = player.TeamId });
-            }
-            else
-            {
-                ViewBag.Error = "Invalid image. Image must be less than 4MB and a .jpg, .gif, .png or .svg";
-                return RedirectToAction("Add", "Player");
-            }
-
+            return RedirectToAction("Details", "Team", new { ID = player.TeamId });
         }
 
         public static PlayerModel ConvertToViewModel(Player dbPlayer)

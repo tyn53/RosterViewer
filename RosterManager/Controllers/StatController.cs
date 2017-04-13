@@ -8,6 +8,9 @@ using System.Web.Mvc;
 
 namespace Gmi.RosterManager.Controllers
 {
+    /// <summary>
+    /// MVC Controller for statistic actions.
+    /// </summary>
     public class StatController : Controller
     {
         private readonly IStatRepository statRepo;

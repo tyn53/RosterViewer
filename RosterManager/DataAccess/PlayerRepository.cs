@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace Gmi.RosterManager.DataAccess
 {
+    /// <summary>
+    /// Data access repository for Player objects.
+    /// </summary>
     public class PlayerRepository : IPlayerRepository
     {
         public IEnumerable<Player> GetPlayers()
@@ -49,7 +52,8 @@ namespace Gmi.RosterManager.DataAccess
                 if (player.AvatarImageFile != null)
                 {
                     var unwantedImage = dbPlayer.Image;
-                    dbContext.Images.DeleteOnSubmit(unwantedImage);
+                    if (unwantedImage != null)
+                        dbContext.Images.DeleteOnSubmit(unwantedImage);
                     dbPlayer.Image = new Image()
                     {
                         imageFileName = player.AvatarImageFile.FileName,
@@ -90,6 +94,9 @@ namespace Gmi.RosterManager.DataAccess
             }
         }
     }
+    /// <summary>
+    /// Player repository interface.
+    /// </summary>
     public interface IPlayerRepository
     {
         IEnumerable<Player> GetPlayers();
