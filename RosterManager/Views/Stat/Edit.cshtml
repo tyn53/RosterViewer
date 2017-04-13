@@ -46,15 +46,8 @@
                         </div>
                     </div>
                 </div>
-
             }
+            <button class="btn btn-default text-center pull-right" title="Cancel" onclick="@("window.location.href='" + Url.Action("Details", Model.EntityType.ToString(), new { ID = Model.EntityId }, null) + "'");"> Cancel </button>
         </div>
     </div>
-</div>
-
-
-
-
-<div>
-    @Html.ActionLink("Back to List", "Details", Model.EntityType.ToString(), new { id = Model.EntityId }, null)
 </div>

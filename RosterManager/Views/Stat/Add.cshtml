@@ -38,8 +38,7 @@
 
                     @Html.HiddenFor(model => model.EntityId)
                     @Html.HiddenFor(model => model.EntityType)
-
-
+                    
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
                             <input type="submit" value="Create" class="btn btn-default" />
@@ -47,9 +46,8 @@
                     </div>
                 </div>
             }
+            <button class="btn btn-default text-center pull-right" title="Cancel" onclick="@("window.location.href='" + Url.Action("Details", Model.EntityType.ToString(), new { ID = Model.EntityId }, null) + "'");"> Cancel </button>
         </div>
     </div>
 </div>
-<div>
-    @Html.ActionLink("Back to List", "Details", Model.EntityType.ToString(), new { ID = Model.EntityId }, null)
-</div>
+

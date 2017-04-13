@@ -63,12 +63,13 @@
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
                                 <input type="submit" value="Save" class="btn btn-default" />
-                                <button class="btn btn-default text-center" title="Edit Team" onclick="@("window.location.href='" + Url.Action("Details", "Team", new { id = Model.TeamId }, null) + "'");"> Cancel </button>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
             }
+            <button class="btn btn-default text-center pull-right" title="Cancel" onclick="@("window.location.href='" + Url.Action("Details", "Player", new { id = Model.PlayerId }, null) + "'");"> Cancel </button>
         </div>
     </div>
 </div>
